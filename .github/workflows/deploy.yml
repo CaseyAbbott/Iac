@@ -24,7 +24,7 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.RG_D_TEST }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./appserviceplan.bicep
           #parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
           failOnStdErr: false
