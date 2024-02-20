@@ -42,7 +42,7 @@ resource appServiceAppSetting 'Microsoft.Web/sites/config@2021-01-15' = {
 }
 
 resource appInsightsComponents 'Microsoft.Insights/components@2020-02-02' = {
-  name: 'name'
+  name: 'appi-d-test'
   location: resourceGroup().location
   kind: 'web'
   properties: {
