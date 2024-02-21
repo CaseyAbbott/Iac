@@ -1,8 +1,8 @@
-//param location string = 'eastus'
+param location string = resourceGroup().location
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: 'asp-d-test'
-  location: resourceGroup().location
+  location: location
   sku: {
     name: 'F1'
     capacity: 1
@@ -11,7 +11,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
 
 resource appService 'Microsoft.Web/sites@2021-01-15' = {
   name: 'app-d-test'
-  location: resourceGroup().location
+  location: location
   tags: {
     'hidden-related:${resourceGroup().id}/providers/Microsoft.Web/serverfarms/appServicePlan': 'Resource'
   }
@@ -43,7 +43,7 @@ resource appServiceAppSetting 'Microsoft.Web/sites/config@2021-01-15' = {
 
 resource appInsightsComponents 'Microsoft.Insights/components@2020-02-02' = {
   name: 'appi-d-test'
-  location: resourceGroup().location
+  location: location
   kind: 'web'
   properties: {
     Application_Type: 'web'
