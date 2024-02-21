@@ -1,5 +1,6 @@
 param location string = resourceGroup().location
 
+// App Sevice Plan
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: 'asp-d-test'
   location: location
@@ -9,6 +10,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   }
 }
 
+// App Service
 resource appService 'Microsoft.Web/sites@2021-01-15' = {
   name: 'app-d-test'
   location: location
@@ -17,6 +19,12 @@ resource appService 'Microsoft.Web/sites@2021-01-15' = {
   }
   properties: {
     serverFarmId: resourceId('Microsoft.Web/serverfarms', 'asp-d-test')
+    siteConfig: {
+      minTlsVersion: '1.2'
+      scmMinTlsVersion: '1.2'
+      ftpsState: 'Disabled'
+      netFrameworkVersion: 'v6.0'
+    }
   }
   dependsOn: [
     appServicePlan
@@ -41,6 +49,7 @@ resource appServiceAppSetting 'Microsoft.Web/sites/config@2021-01-15' = {
   }
 }
 
+// Application Insights
 resource appInsightsComponents 'Microsoft.Insights/components@2020-02-02' = {
   name: 'appi-d-test'
   location: location
