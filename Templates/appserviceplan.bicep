@@ -18,6 +18,7 @@ resource appService 'Microsoft.Web/sites@2021-01-15' = {
     'hidden-related:${resourceGroup().id}/providers/Microsoft.Web/serverfarms/appServicePlan': 'Resource'
   }
   properties: {
+    httpsOnly: true
     serverFarmId: resourceId('Microsoft.Web/serverfarms', 'asp-d-test')
     siteConfig: {
       minTlsVersion: '1.2'
