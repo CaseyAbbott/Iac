@@ -35,10 +35,10 @@ jobs:
       with:
         categories: 'IaC'
   
-    - name: Upload results to security tab
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: ${{ steps.msdo.outputs.sarifFile }}
+#    - name: Upload results to security tab
+#      uses: github/codeql-action/upload-sarif@v2
+#      with:
+#        sarif_file: ${{ steps.msdo.outputs.sarifFile }}
   
   preview:
     needs: scan-bicep-code
