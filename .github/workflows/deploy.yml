@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-    - 'appserviceplan.bicep'
+    - 'Templates/appserviceplan.bicep'
   workflow_dispatch:
 
 jobs:
@@ -54,8 +54,7 @@ jobs:
       name: Run what-if
       with:
         inlineScript: |
-          #az deployment group what-if --resource-group ${{ secrets.Azure_RG }} --template ./appserviceplan.bicep
-          az deployment group create --resource-group ${{ secrets.Azure_RG }} --template-file ./appserviceplan.bicep --confirm-with-what-if
+          az deployment group create --resource-group ${{ secrets.Azure_RG }} --template-file Templates/appserviceplan.bicep --confirm-with-what-if
   deploy-infra:
     needs: preview
     runs-on: ubuntu-latest

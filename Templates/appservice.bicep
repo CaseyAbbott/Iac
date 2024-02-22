@@ -1,4 +1,5 @@
 param location string
+
 resource webApplication 'Microsoft.Web/sites@2021-01-15' = {
   name: 'name'
   location: location
