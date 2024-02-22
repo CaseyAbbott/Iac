@@ -8,15 +8,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  azure-login:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Log into Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+      - uses: actions/checkout@v3
+      - name: Log into Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
   scan-bicep-code:
     needs: build
@@ -28,8 +29,8 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - uses: microsoft/security-devops-action@v1.10.0
     - name: Run Microsoft Security DevOps Analysis
+      uses: microsoft/security-devops-action@v1.10.0
       id: msdo
       with:
         categories: 'IaC'
@@ -54,7 +55,6 @@ jobs:
       with:
         inlineScript: |
           az deployment group create --resource-group ${{ secrets.Azure_RG }} --template-file Templates/appserviceplan.bicep --confirm-with-what-if
-          
   deploy-infra:
     needs: preview
     runs-on: ubuntu-latest
@@ -70,5 +70,13 @@ jobs:
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: Templates/appserviceplan.bicep
+          template: ./appserviceplan.bicep
           failOnStdErr: false
+      
+#      - name: bicep-build-output
+#        uses: Azure/bicep-build-action@v1.0.1
+#        with:
+#          # Bicep main file path
+#          bicepFilePath: appserviceplan.bicep
+#          # ARM template output path
+#          outputFilePath: ./azuredeploy.json
