@@ -54,7 +54,7 @@ jobs:
       name: Run what-if
       with:
         inlineScript: |
-          az deployment group create --resource-group ${{ secrets.Azure_RG }} --template-file Templates/appserviceplan.bicep --confirm-with-what-if
+          ls && az deployment group create --resource-group ${{ secrets.Azure_RG }} --template-file Templates/appserviceplan.bicep --confirm-with-what-if
   deploy-infra:
     needs: preview
     runs-on: ubuntu-latest
