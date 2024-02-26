@@ -48,6 +48,9 @@ resource appServiceAppSetting 'Microsoft.Web/sites/config@2021-01-15' = {
       }
     ]        
   }
+  dependsOn: [
+    appInsightsComponents
+  ]
 }
 
 // Application Insights
