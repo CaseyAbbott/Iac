@@ -1,5 +1,5 @@
 name: CI
-
+# POC of the PricingAPI dev environment
 on:
   push:
     branches: [ "main" ]
@@ -10,14 +10,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    
-      - uses: actions/checkout@v3
-      - name: Log into Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: actions/checkout@v4
+    - name: Log into Azure
+      uses: azure/login@v1.6.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
   scan-bicep-code:
     needs: build
@@ -29,7 +27,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Run Microsoft Security DevOps Analysis
+    - name: Run Microsoft Defender for DevOps Analysis
       uses: microsoft/security-devops-action@v1.10.0
       id: msdo
       with:
@@ -44,9 +42,9 @@ jobs:
     needs: scan-bicep-code
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Log into Azure
-      uses: azure/login@v1
+      uses: azure/login@v1.6.1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
       
@@ -59,14 +57,14 @@ jobs:
     needs: preview
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Log into Azure
-        uses: azure/login@v1
+        uses: azure/login@v1.6.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: Deploy Bicep file
-        uses: azure/arm-deploy@v1
+        uses: azure/arm-deploy@v2
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
