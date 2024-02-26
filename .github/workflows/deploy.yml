@@ -70,7 +70,7 @@ jobs:
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./main.bicep
+          template: Templates/main.bicep
           failOnStdErr: false
       
 #      - name: bicep-build-output
