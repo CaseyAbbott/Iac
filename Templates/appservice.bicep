@@ -17,9 +17,6 @@ resource appService 'Microsoft.Web/sites@2021-01-15' = {
       netFrameworkVersion: 'v6.0'
     }
   }
-  dependsOn: [
-    appServicePlan
-  ]
 }
 
 // App settings to link ApplicationInsights to App Service
